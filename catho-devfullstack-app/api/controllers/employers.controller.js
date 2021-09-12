@@ -12,7 +12,7 @@ const post = async (req, res) => {
 };
  
 const put = async (req, res) => {
-  let id = req.params.id;
+  const { id }  = req.params;
 
   try {
     const employer = await employerService.update(id, req.body);
@@ -29,7 +29,7 @@ const put = async (req, res) => {
 };
 
 const del = async (req, res) => {
-  let id = req.params.id;
+  const { id }  = req.params;
 
   try {
     employer = await employerService.destroy(id);
@@ -51,7 +51,7 @@ const get = async (req, res) => {
 };
 
 const getById = async (req, res) => {
-  let id = req.params.id;
+  const { id }  = req.params;
 
   try {
     employer = await employerService.getById(id);
