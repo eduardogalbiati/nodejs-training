@@ -14,6 +14,10 @@ const post = async (req, res) => {
 const put = async (req, res) => {
   const { id }  = req.params;
 
+  if (!id) {
+    return res.status(412).send(`Missing required properties, [${id}]`)
+  }
+
   try {
     const employer = await employerService.update(id, req.body);
     
@@ -30,6 +34,10 @@ const put = async (req, res) => {
 
 const del = async (req, res) => {
   const { id }  = req.params;
+
+  if (!id) {
+    return res.status(412).send(`Missing required properties, [${id}]`)
+  }
 
   try {
     employer = await employerService.destroy(id);
@@ -52,6 +60,10 @@ const get = async (req, res) => {
 
 const getById = async (req, res) => {
   const { id }  = req.params;
+
+  if (!id) {
+    return res.status(412).send(`Missing required properties, [${id}]`)
+  }
 
   try {
     employer = await employerService.getById(id);
