@@ -1,1 +1,28 @@
-{"1":{"name":"Employer 1","email":"employer1@mail.com","password":"123456789"},"2":{"name":"Employer 3 (Alterado)","email":"employer5@mail.com","password":"123456789"},"4":{"name":"Employer 4","email":"employer4@mail.com","password":"123456789"},"5":{"name":"Employer 5","email":"employer5@mail.com","password":"123456789"}}
+{
+    "data": [
+      {
+        "id": 1,
+        "name": "Employer 1",
+        "email": "employer1@mail.com",
+        "password": "123456789"
+      },
+      {
+        "id": 2,
+        "name": "Employer 3 (Alterado)",
+        "email": "employer5@mail.com",
+        "password": "123456789"
+      },
+      {
+        "id": 3,
+        "name": "Employer 4",
+        "email": "employer4@mail.com",
+        "password": "123456789"
+      },
+      {
+        "id": 4,
+        "name": "Employer 5",
+        "email": "employer5@mail.com",
+        "password": "123456789"
+      }
+    ]
+  }
