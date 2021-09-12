@@ -1,53 +1,59 @@
-const fs = require('fs');
+const fs = require("fs");
 
-const employersDB = require('../db/employers.json');
-const employersDBPath = './api/db/employers.json';
+const employersDB = require("../db/employers.json");
+const employersDBPath = "./api/db/employers.json";
+class EmployerModel {
+  constructor(employer) {
+    const { name, email, active } = employer;
+    this.name = name;
+    this.email = email;
+    this.active = active;
+  }
 
-const employerModel = function(customer) {
-    this.name = customer.name;
-    this.email = customer.email;
-    this.active = customer.active;
-};
+  async create(employer) {
+    const { data } = employersDB;
 
-employerModel.create = async function(data) {
-    // Get keys of employers
-    var keys = Object.keys(employersDB);
-
-    // Get the highest key/ID in the array
-    var highestID = Math.max.apply(null, keys);
-
-    const employerID = highestID + 1;
-
-    employersDB[employerID] = data;
-    
-    // Writing the JSON to data file
+    data.push(employer);
     fs.writeFileSync(employersDBPath, JSON.stringify(employersDB));
+    return await this.getById(employer.id);
+  }
 
-    return employersDB[employerID];
-};
+  async get() {
+    const { data } = employersDB;
+    return data;
+  }
 
-employerModel.get = async function() {
-    return employersDB;
-};
+  async getById(id) {
+    const { data } = employersDB;
+    return data.find((item) => item.id === id);
+  }
 
-employerModel.update = async function(id, data) {
-    employersDB[id] = data;
-    
-    // Writing the JSON to data file
+  async update(employer) {
+    const { data } = employersDB;
+    const { id } = employer;
+
+    const updatedData = data.map((item) => {
+      if (item.id === id) {
+        return {
+          ...item,
+          ...employer,
+        };
+      }
+      return item;
+    });
+
+    employersDB.data = updatedData;
     fs.writeFileSync(employersDBPath, JSON.stringify(employersDB));
+    return await this.getById(id);
+  }
 
-    return employersDB[id];
-};
+  async destroy(id) {
+    const { data } = employersDB;
+    const updatedData = data.filter((item) => item.id !== id);
 
-employerModel.destroy = async function(id) {
-    delete employersDB[id];
-    
-    // Writing the JSON to data file
+    employersDB.data = updatedData;
     fs.writeFileSync(employersDBPath, JSON.stringify(employersDB));
-};
+  }
+}
 
-employerModel.getById = async function(id) {
-    return employersDB[id];
-};
-
-module.exports = employerModel;
+module.exports = EmployerModel;
