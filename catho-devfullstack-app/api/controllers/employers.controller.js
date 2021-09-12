@@ -1,56 +1,54 @@
-const employerService = require('../services/employers.service.js');
+const employerService = require("../services/employers.service.js");
 
 const post = async (req, res) => {
   try {
     const employer = await employerService.create(req.body);
     if (employer) {
-      res.status(201).send('Employer created successfully!');
+      res.status(201).send("Employer created successfully!");
     }
   } catch (err) {
     res.status(400).send(err);
-  }  
+  }
 };
- 
+
 const put = async (req, res) => {
-  const { id }  = req.params;
+  const { id } = req.params;
 
   if (!id) {
-    return res.status(412).send(`Missing required properties, [${id}]`)
+    return res.status(412).send(`Missing required properties, [${id}]`);
   }
 
   try {
     const employer = await employerService.update(id, req.body);
-    
+
     if (employer) {
       res.status(201).send(`Employer ${id} updated successfully!`);
     } else {
-      res.status(200).send(`Employer not found!`)
+      res.status(200).send(`Employer not found!`);
     }
   } catch (err) {
     res.status(400).send(err);
-  }  
-  
+  }
 };
 
 const del = async (req, res) => {
-  const { id }  = req.params;
+  const { id } = req.params;
 
   if (!id) {
-    return res.status(412).send(`Missing required properties, [${id}]`)
+    return res.status(412).send(`Missing required properties, [${id}]`);
   }
 
   try {
     employer = await employerService.destroy(id);
-    
+
     if (employer) {
-      res.status(200).send(`Employer ${id} deleted successfully!`);  
+      res.status(200).send(`Employer ${id} deleted successfully!`);
     } else {
-      res.status(200).send(`Employer not found!`)
+      res.status(200).send(`Employer not found!`);
     }
-  }  
-  catch (err) {
+  } catch (err) {
     res.status(400).send(err);
-  }  
+  }
 };
 
 const get = async (req, res) => {
@@ -59,25 +57,28 @@ const get = async (req, res) => {
 };
 
 const getById = async (req, res) => {
-  const { id }  = req.params;
+  const { id } = req.params;
 
   if (!id) {
-    return res.status(412).send(`Missing required properties, [${id}]`)
+    return res.status(412).send(`Missing required properties, [${id}]`);
   }
 
   try {
     employer = await employerService.getById(id);
     if (employer) {
-      res.status(200).json(employer)
+      res.status(200).json(employer);
     } else {
-      res.status(200).send(`Employer not found!`)
+      res.status(200).send(`Employer not found!`);
     }
   } catch (err) {
     res.status(400).send(err);
   }
-  
 };
 
-module.exports = (app) = {
-  post, put, del, get, getById
-}
+module.exports = app = {
+  post,
+  put,
+  del,
+  get,
+  getById,
+};
